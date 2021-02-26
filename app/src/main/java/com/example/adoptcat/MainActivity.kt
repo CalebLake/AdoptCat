@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge
+package com.example.adoptcat
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
@@ -23,7 +23,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.androiddevchallenge.ui.theme.MyTheme
+import com.example.adoptcat.ui.theme.MyTheme
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +41,17 @@ class MainActivity : AppCompatActivity() {
 fun MyApp() {
     Surface(color = MaterialTheme.colors.background) {
         Text(text = "Ready... Set... GO!")
+        Text(text = "A day in Shark Fin Cove")
+        Text(text = "Davenport, California")
+        Text(text = "December 2018")
     }
+}
+
+@Composable
+fun NewsStory() {
+    Text("A day in Shark Fin Cove")
+    Text("Davenport, California")
+    Text("December 2018")
 }
 
 @Preview("Light Theme", widthDp = 360, heightDp = 640)
