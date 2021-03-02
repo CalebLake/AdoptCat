@@ -18,11 +18,22 @@ package com.example.adoptcat
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.example.adoptcat.model.cats
+import com.example.adoptcat.ui.cat.CatCard
 import com.example.adoptcat.ui.theme.MyTheme
 
 class MainActivity : AppCompatActivity() {
@@ -40,19 +51,65 @@ class MainActivity : AppCompatActivity() {
 @Composable
 fun MyApp() {
     Surface(color = MaterialTheme.colors.background) {
-        Text(text = "Ready... Set... GO!")
-        Text(text = "A day in Shark Fin Cove")
-        Text(text = "Davenport, California")
-        Text(text = "December 2018")
+        LazyColumn {
+            item {
+                HomeAppBar()
+            }
+            // Add items
+            itemsIndexed(cats) { index, cat ->
+                CatCard(
+                    cat,
+                    onCatClick = { },
+                    index = index,
+                    scroll = 0,
+                    modifier = Modifier
+                )
+            }
+        }
+
     }
 }
 
+
 @Composable
-fun NewsStory() {
-    Text("A day in Shark Fin Cove")
-    Text("Davenport, California")
-    Text("December 2018")
+fun HomeAppBar() {
+    TopAppBar(
+        elevation = 0.dp,
+        modifier = Modifier.height(80.dp),
+        title = {
+            Row {
+                Icon(
+                    painter = painterResource(R.drawable.ic_lockup_white),
+                    contentDescription = stringResource(R.string.app_name),
+                    modifier = Modifier
+                        .padding(start = 4.dp)
+                        .heightIn(max = 24.dp)
+                )
+            }
+        },
+        actions = {
+            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                IconButton(
+                    onClick = { /* TODO: Open search */ }
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.Search,
+                        contentDescription = stringResource(R.string.label_search)
+                    )
+                }
+                IconButton(
+                    onClick = { /* TODO: Open account? */ }
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.AccountCircle,
+                        contentDescription = stringResource(R.string.label_profile)
+                    )
+                }
+            }
+        }
+    )
 }
+
 
 @Preview("Light Theme", widthDp = 360, heightDp = 640)
 @Composable
